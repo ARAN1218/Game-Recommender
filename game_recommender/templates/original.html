@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+
+{% block main %}
+    <div class="title">
+        <h2>Original Recommender</h2>
+        <p>あなたの神ゲーをAIの力で探しましょう！</p>
+        <p>以下の評価項目を直感的に入力してください！</p>
+    </div>
+
+    <div class="questions">
+        <form action="/original" enctype="multipart/form-data" method="POST">
+            <h3>レコメンド方法 ※詳細はAboutページへ</h3>
+            <p>original...オリジナルアルゴリズム(おすすめ)</p>
+            <p>cos...コサイン類似度</p>
+            <p>euclid...ユークリッド距離</p>
+            <input type="radio" name="recommender" value="original" checked>original
+            <input type="radio" name="recommender" value="cos">cos
+            <input type="radio" name="recommender" value="euclid">euclid
+            <br>
+            <h3>あなたのゲーマー属性</h3>
+            <p>ガチ勢 or エンジョイ勢</p>
+            <input type="radio" name="attribute" value="ガチ勢" checked>ガチ勢
+            <input type="radio" name="attribute" value="エンジョイ勢">エンジョイ勢
+            <br>
+            <h3>コンテンツ量</h3>
+            <p>ゲーム内に用意されたコンテンツ量・要素の豊富さ(0~5)</p>
+            <input type="range" class="input" min="0" max="5" step="0.1" value="{{ volume }}" name="volume" list="my-datalist">
+            <br>
+            <h3>自由度</h3>
+            <p>ゲーム内でできることの幅の広さ、プレイヤーごとの個性の出やすさ(0~5)</p>
+            <input type="range" class="input" min="0" max="5" step="0.1" value="{{ freedom }}" name="freedom" list="my-datalist">
+            <br>
+            <h3>ソーシャリティ</h3>
+            <p>ゲームだけで新たな友人が作れる、コミュニケーションツールとして機能するか(0~5)</p>
+            <input type="range" class="input" min="0" max="5" step="0.1" value="{{ social }}" name="social" list="my-datalist">
+            <br>
+            <h3>BGM</h3>
+            <p>ゲーム内のBGMが年齢を問わず幅広く支持されるようなキャッチーさ、印象に残りやすいか(0~5)</p>
+            <input type="range" class="input" min="0" max="5" step="0.1" value="{{ BGM }}" name="BGM" list="my-datalist">
+            <br>
+            <h3>グラフィック</h3>
+            <p>ハードの性能を最大限活かした優れた映像技術であるか(0~5)</p>
+            <input type="range" class="input" min="0" max="5" step="0.1" value="{{ graphic }}" name="graphic" list="my-datalist">
+            <br>
+            <h3>感情移入</h3>
+            <p>年齢を問わず誰が遊んでも強く感情が動かされるか、作品や登場人物に深い共感を持てるか(0~5)</p>
+            <input type="range" class="input" min="0" max="5" step="0.1" value="{{ empathy }}" name="empathy" list="my-datalist">
+            <br>
+            <h3>ゲーム性・敷居の低さ</h3>
+            <p>ガチ勢：玄人向けで、プレイスキルを磨くほど楽しさが増していくか(0~5)</p>
+            <p>エンジョイ勢：操作等が簡単で、初心者でも参入しやすいか(0~5)</p>
+            <input type="range" class="input" min="0" max="5" step="0.1" value="{{ difficulty }}" name="difficulty" list="my-datalist">
+            <br>
+            <h3>ゲームの価値</h3>
+            <p>ゲームの総合的な出来栄え(0~10)</p>
+            <input type="range" class="input" min="0" max="10" step="0.1" value="{{ value }}" name="value" list="my-datalist">
+            <br>
+    
+            <br><br><br>
+            <button class="button" type="submit" button-size="large">神ゲーを探す</button>
+        </form>
+    </div>
+
+    {% if recommend_flag %}
+        <div class="answers" id="answers">
+            <p>入力した情報</p>
+            <p>レコメンド方法：{{ recommender }}</p>
+            <p>ゲーマー属性：{{ attribute }}</p>
+            <p>コンテンツ量：{{ volume }}</p>
+            <p>自由度：{{ freedom }}</p>
+            <p>ソーシャリティ：{{ social }}</p>
+            <p>BGM：{{ BGM }}</p>
+            <p>グラフィック：{{ graphic }}</p>
+            <p>感情移入：{{ empathy }}</p>
+            <p>ゲーム性・敷居の低さ：{{ difficulty }}</p>
+            <p>ゲームの価値：{{ value }}</p>
+            <br>
+            <p>あなたへのおすすめゲームTOP10</p>
+            <table>
+                <thead>
+                    <tr>
+                        {% for i in header: %}
+                        <th scope="col">{{ i }}</th>
+                        {% endfor %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% set cnt = 0 %}
+                    {% for i in record: %}
+                    <tr>
+                        {% for j in range(i | length): %}
+                            {% if j == 4 %}
+                                <td><a href="{{ i[j] }}">{{ i[j] }}</a></td>
+                            {% else %}
+                                <td>{{ i[j] }}</td>
+                            {% endif %}
+                        {% endfor %}
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ja" prefix="og: http://ogp.me/ns#">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta property="og:title" content="Game Recommender" />
+    <meta property="og:description" content="AIがあなたへのおすすめゲームを探します🐦" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://game-recommender.deta.dev" />
+    <meta property="og:image" content="https://game-recommender.deta.dev/static/media/game_controler.png" />
+    <link rel=apple-touch-icon sizes="180x180" href="{{ url_for('static', filename='media/apple-touch-icon.png') }}">
+    <link rel=icon type=image/png href="{{ url_for('static', filename='media/favicon.png') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <title>Game Recommender</title>
+</head>
+<body>
+    <header>
+        <h1><a>Game Recommender</a></h1>
+        <button type="button" class="menu-btn">
+            <i class="fa fa-bars" aria-hidden="true"></i>
+            <span class="MenuBtn-BarFrame">
+                <span class="MenuBtn-BarFrame-FirstBar"></span>
+                <span class="MenuBtn-BarFrame-SecondBar"></span>
+                <span class="MenuBtn-BarFrame-ThirdBar"></span>
+            </span>
+        </button>
+        <div class="menu">
+            <div class="menu__item"><a href="/">Game Recommender</a></div>
+            <div class="menu__item"><a href="/original_reverse">Game Recommender Reverse</a></div>
+            <!-- <div class="menu__item"><a href="/cos">Game Recommender(cos)</a></div>
+            <div class="menu__item"><a href="/cos_reverse">Game Recommender(cos) Reverse</a></div>
+            <div class="menu__item"><a href="/euclid">Game Recommender(euclid)</a></div>
+            <div class="menu__item"><a href="/euclid_reverse">Game Recommender(euclid) Reverse</a></div> -->
+            <div class="menu__item"><a href="/about">About</a></div>
+            <div class="menu__item"><a href="/contact">Contact</a></div>
+        </div>
+    </header>
+    {% block main %}
+    {% endblock %}
+    <footer>created by Shunsuke Nara</footer>
+    <datalist id="my-datalist">
+        <option value="0">
+        <option value="1">
+        <option value="2">
+        <option value="3">
+        <option value="4">
+        <option value="5">
+        <option value="6">
+        <option value="7">
+        <option value="8">
+        <option value="9">
+        <option value="10">
+    </datalist>
+
+    <script>
+        // hamburger menu
+        document.querySelector('.menu-btn').addEventListener('click', function(){
+            document.querySelector('.menu').classList.toggle('is-active');
+            document.querySelector('.MenuBtn-BarFrame').classList.toggle('isClosed');
+        });
+    </script>
+
+    {% if recommend_flag %}
+        <script>
+            window.addEventListener('DOMContentLoaded', function(e){
+                location.hash="answers";
+            });
+        </script>
+
+        <script>
+            let flask_recommender = {{ recommender | tojson }};
+            let flask_attribute = {{ attribute | tojson }};
+            let recommenders = document.querySelectorAll("input[name=recommender]");
+            let attributes = document.querySelectorAll("input[name=attribute]");
+
+            for(let element of recommenders) {
+                element.checked = false;
+                if(element.value == flask_recommender) {
+                    element.checked = true;
+                }
+            }
+            
+            for(let element of attributes) {
+                element.checked = false;
+                if(element.value == flask_attribute) {
+                    element.checked = true;
+                }
+            }
+        </script>
+    {% endif %}
+</body>
+</html>

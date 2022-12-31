@@ -1,0 +1,238 @@
+body{
+    background-color: rgb(240, 240, 240);
+}
+
+footer{
+    color: rgb(132, 132, 132);
+}
+
+.button{
+    width: 20%;
+    min-width: 200px;
+    max-width: 600px;
+    padding: 10px;
+    box-sizing: border-box;
+    border: 1px solid #68779a;
+    background: #cbe8fa;
+    cursor: pointer;
+}
+
+/* PC用 */
+@media screen and (min-width: 500px) {
+    .input{
+        width: 30%;
+        margin: 5% 5% !important;
+    }
+}
+/* スマホ用 */
+@media screen and (max-width: 500px) {
+    .input{
+        width: 50%;
+        margin: 25% 25% !important;
+    }
+}
+
+
+/*----------------------------
+* メニュー開閉ボタン
+*----------------------------*/
+.menu-btn{
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 2;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #333;
+    color: #fff;
+}
+
+/*----------------------------
+* メニュー本体
+*----------------------------*/
+.menu{
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 1;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: rgb(125, 125, 125);
+}
+.menu__item{
+    width: 100%;
+    height: auto;
+    padding: .5em 1em;
+    text-align: center;
+    box-sizing: border-box;
+}
+.menu__item a{
+    color: #fff;
+    text-decoration: none;
+}
+.menu__item a:hover{
+    color: rgb(0, 0, 0);
+}
+
+/*----------------------------
+* アニメーション部分
+*----------------------------*/
+
+/* アニメーション前のメニューの状態 */
+.menu{
+    transform: translateX(100vw);
+    transition: all .3s linear;
+}
+/* アニメーション後のメニューの状態 */
+.menu.is-active{
+    transform: translateX(0);
+    /* transform: translateY(0) rotate(45deg); */
+}
+
+
+
+
+
+/* ボタンの挙動 */
+/* .MenuBtn.Style01 {
+    position: relative;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: solid 2px #000000;
+} */
+.Menu-btn .MenuBtn-BarFrame {
+    position: relative;
+    display: block;
+    width: 24px;
+    height: 2px;
+}
+.MenuBtn-BarFrame .MenuBtn-BarFrame-FirstBar {
+    position: absolute;
+    display: block;
+    top: 14px;
+    right: 8px;
+    width: 30px;
+    height: 5px;
+    background-color: #ffffff;
+    transition: all .15s linear;
+    transform: translateY(-8px) rotate(0deg);
+}
+.MenuBtn-BarFrame .MenuBtn-BarFrame-SecondBar {
+    position: absolute;
+    display: block;
+    top: 22px;
+    right: 8px;
+    width: 30px;
+    height: 5px;
+    background-color: #ffffff;
+    transition: all .15s linear;
+}
+.MenuBtn-BarFrame .MenuBtn-BarFrame-ThirdBar {
+    position: absolute;
+    display: block;
+    top: 30px;
+    right: 8px;
+    width: 30px;
+    height: 5px;
+    background-color: #ffffff;
+    transition: all .15s linear;
+    transform: translateY(8px) rotate(0deg);
+}
+
+.MenuBtn-BarFrame.isClosed .MenuBtn-BarFrame-FirstBar {
+    transform: translateY(8px) rotate(45deg);
+}
+.MenuBtn-BarFrame.isClosed .MenuBtn-BarFrame-SecondBar {
+    opacity: 0;
+}
+.MenuBtn-BarFrame.isClosed .MenuBtn-BarFrame-ThirdBar {
+    transform: translateY(-8px) rotate(-45deg);
+}
+
+
+/*----------------------------
+* 結果出力画面
+*----------------------------*/
+table {
+    width: 100%;
+    margin-top: 1em;
+    margin-left: auto;
+    margin-right: auto;
+    border: none;
+    border-collapse: collapse;
+    border-spacing: 0;
+    color: black;
+    font-size: 12px;
+    table-layout: fixed;
+    text-align: right;
+    padding: 0.4em;
+}
+thead {
+    border-bottom: 1px solid black;
+    vertical-align: bottom;
+}
+tbody tr:nth-child(odd) {
+    background: #f5f5f5;
+}
+tr, th, td {
+    text-align: right;
+    vertical-align: middle;
+    padding: 0.5em 0.5em;
+    line-height: normal;
+    white-space: normal;
+    max-width: none;
+    border: none;
+    word-break: break-word;
+}
+th {
+    font-weight: bold;
+}
+
+
+/* アコーディオンメニュー */
+.accordion__container {
+    max-width: 100%;
+    width: 95%;
+    margin: 20px auto 0;
+    border: 1px solid gainsboro;
+    border-bottom: 0;
+}
+
+.accordion__tab {
+    padding: 10px 20px;
+    cursor: pointer;
+    position: relative;
+    background: rgba(255, 255, 255, 0.4);
+    border-top: 0;
+    border-bottom: 1px solid gainsboro;
+}
+
+.accordion__tab::after {
+    content: "＋";
+    position: absolute;
+    right: 20px;
+}
+
+.accordion__tab.active::after {
+    content: "ー";
+}
+
+.accordion__content {
+    padding: 10px 20px;
+    display: none; /* display: none; */
+    background: whitesmoke;
+    border-bottom: 1px solid gainsboro;
+}
+.accordion__content.active {
+    display: block;
+}

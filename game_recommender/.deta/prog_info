@@ -1,0 +1,1 @@
+{"id":"3acf6678-c4dc-4dce-a1e5-879d87be3c97","space":30462,"runtime":"python3.9","name":"game-recommender","path":"1xr34s","project":"c083m8ov","account":"144798365827","region":"ap-southeast-1","deps":["flask==2.1.2","numpy","pandas"],"envs":null,"public":true,"log_level":"off","cron":""}
